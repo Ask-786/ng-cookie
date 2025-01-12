@@ -10,7 +10,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class NgCookieService {
+export class CookieService {
   private document = inject(DOCUMENT);
   private platformId = inject(PLATFORM_ID);
   private request = inject(REQUEST);
@@ -21,7 +21,7 @@ export class NgCookieService {
   private cookie() {
     return this.documentIsAccessible
       ? this.document.cookie
-      : (this.request?.headers.get('cookie') ?? '');
+      : this.request?.headers.get('cookie') ?? '';
   }
 
   /**
@@ -35,12 +35,12 @@ export class NgCookieService {
   static getCookieRegExp(name: string): RegExp {
     const escapedName: string = name.replace(
       /([\[\]\{\}\(\)\|\=\;\+\?\,\.\*\^\$])/gi,
-      '\\$1',
+      '\\$1'
     );
 
     return new RegExp(
       '(?:^' + escapedName + '|;\\s*' + escapedName + ')=(.*?)(?:;|$)',
-      'g',
+      'g'
     );
   }
 
@@ -72,7 +72,7 @@ export class NgCookieService {
    */
   check(name: string): boolean {
     name = encodeURIComponent(name);
-    const regExp: RegExp = NgCookieService.getCookieRegExp(name);
+    const regExp: RegExp = CookieService.getCookieRegExp(name);
     return regExp.test(this.cookie());
   }
 
@@ -88,12 +88,12 @@ export class NgCookieService {
     if (this.check(name)) {
       name = encodeURIComponent(name);
 
-      const regExp: RegExp = NgCookieService.getCookieRegExp(name);
+      const regExp: RegExp = CookieService.getCookieRegExp(name);
       const result = regExp.exec(this.cookie());
 
       if (!result?.length) return '';
 
-      return result[1] ? NgCookieService.safeDecodeURIComponent(result[1]) : '';
+      return result[1] ? CookieService.safeDecodeURIComponent(result[1]) : '';
     } else {
       return '';
     }
@@ -114,8 +114,8 @@ export class NgCookieService {
       cookieString.split(';').forEach((currentCookie) => {
         const [cookieName, cookieValue] = currentCookie.split('=');
         cookies[
-          NgCookieService.safeDecodeURIComponent(cookieName.replace(/^ /, ''))
-        ] = NgCookieService.safeDecodeURIComponent(cookieValue);
+          CookieService.safeDecodeURIComponent(cookieName.replace(/^ /, ''))
+        ] = CookieService.safeDecodeURIComponent(cookieValue);
       });
     }
 
@@ -144,7 +144,7 @@ export class NgCookieService {
     domain?: string,
     secure?: boolean,
     sameSite?: 'Lax' | 'None' | 'Strict',
-    partitioned?: boolean,
+    partitioned?: boolean
   ): void;
 
   /**
@@ -175,7 +175,7 @@ export class NgCookieService {
       secure?: boolean;
       sameSite?: 'Lax' | 'None' | 'Strict';
       partitioned?: boolean;
-    },
+    }
   ): void;
 
   set(
@@ -186,7 +186,7 @@ export class NgCookieService {
     domain?: string,
     secure?: boolean,
     sameSite?: 'Lax' | 'None' | 'Strict',
-    partitioned?: boolean,
+    partitioned?: boolean
   ): void {
     if (
       typeof expiresOrOptions === 'number' ||
@@ -217,7 +217,7 @@ export class NgCookieService {
     if (options.expires) {
       if (typeof options.expires === 'number') {
         const dateExpires: Date = new Date(
-          new Date().getTime() + options.expires * 1000 * 60 * 60 * 24,
+          new Date().getTime() + options.expires * 1000 * 60 * 60 * 24
         );
 
         cookieString += 'expires=' + dateExpires.toUTCString() + ';';
@@ -238,7 +238,7 @@ export class NgCookieService {
       options.secure = true;
       console.warn(
         `[ngx-cookie-service] Cookie ${name} was forced with secure flag because sameSite=None.` +
-          `More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130`,
+          `More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130`
       );
     }
 
@@ -280,7 +280,7 @@ export class NgCookieService {
     path?: string,
     domain?: string,
     secure?: boolean,
-    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax',
+    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'
   ): void {
     const expiresDate = new Date('Thu, 01 Jan 1970 00:00:01 GMT');
     this.set(name, '', {
@@ -306,7 +306,7 @@ export class NgCookieService {
     path?: string,
     domain?: string,
     secure?: boolean,
-    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax',
+    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'
   ): void {
     const cookies = this.getAll();
 
