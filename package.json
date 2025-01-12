@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
-    "build": "ng build ng-cookie",
-    "publish": "ng build ng-cookie && changeset publish"
+    "build": "ng-packagr -p projects/ng-cookie/ng-package.json",
+    "publish": "ng-packagr -p projects/ng-cookie/ng-package.json && changeset publish"
   },
   "private": false,
   "dependencies": {
