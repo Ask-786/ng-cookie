@@ -7,7 +7,7 @@ But only intended to be used with Angular 19 currently.
 ## Usage
 
 ```typescript
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from "ngx-cookie-ssr";
 import { Component, inject } from "@angular/core";
 
 @Component({
