@@ -1,5 +1,11 @@
 # ng-cookie
 
+## 0.0.5
+
+### Patch Changes
+
+- 51c0339: bla
+
 ## 0.0.4
 
 ### Patch Changes
