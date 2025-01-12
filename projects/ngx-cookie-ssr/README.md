@@ -7,20 +7,24 @@ But only intended to be used with Angular 19 currently.
 ## Usage
 
 ```typescript
-import { NgCookieService } from "ngx-cookie-service";
+import { CookieService } from "ngx-cookie-service";
 import { Component, inject } from "@angular/core";
 
 @Component({
   selector: "my-component",
   template: `<h1>Hello World</h1>`,
-  providers: [NgCookieService],
+  providers: [CookieService],
 })
 export class HelloComponent {
-  cookieService = inject(NgCookieService);
+  private cookieService = inject(CookieService);
+  private platformId = inject(PLATFORM_ID);
 
   constructor() {
-    this.cookieService.set("token", "Hello World");
-    console.log(this.cookieService.get("token"));
+    if (isPlatformServer(this.platformId)) {
+      this.cookieService.set("token_server", "server");
+    } else {
+      this.cookieService.set("token_client", "client");
+    }
   }
 }
 ```
