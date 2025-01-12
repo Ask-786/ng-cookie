@@ -1,5 +1,11 @@
 # ng-cookie
 
+## 0.0.6
+
+### Patch Changes
+
+- 3daadcc: new patch
+
 ## 0.0.5
 
 ### Patch Changes
