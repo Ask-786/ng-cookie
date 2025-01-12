@@ -21,9 +21,14 @@ jobs:
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
-        with:
-          publish: pnpm run publish
-          cwd: dist/ng-cookie
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM registry
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: pnpm run pubilsh
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: dist/ng-cookie/package.json
+          access: public

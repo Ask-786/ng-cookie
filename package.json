@@ -2,14 +2,11 @@
   "name": "ngx-cookie-ssr",
   "version": "0.0.5",
   "homepage": "https://github.com/Ask-786/ng-cookie",
-  "main": "dist/ng-cookie/fesm2022/ng-cookie.mjs",
-  "module": "dist/ng-cookie/fesm2022/ng-cookie.mjs",
-  "types": "dist/ng-cookie/index.d.ts",
   "scripts": {
     "ng": "ng",
     "test": "ng test",
     "build": "ng-packagr -p projects/ng-cookie/ng-package.json",
-    "publish": "ng-packagr -p projects/ng-cookie/ng-package.json && changeset publish"
+    "publish": "ng-packagr -p projects/ng-cookie/ng-package.json"
   },
   "private": false,
   "dependencies": {
