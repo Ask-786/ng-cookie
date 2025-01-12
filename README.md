@@ -1,59 +1,122 @@
-# NgCookies
+# Ng Cookie Service
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+Ng Cookie Service is a simple cookie service for Angular applications.
+This is heavily inspired by [ngx-cookie-service](https://github.com/stevermeister/ngx-cookie-service).
+But only intended to be used with Angular 19 currently.
 
-## Development server
+## Usage
 
-To start a local development server, run:
+1. In standalone components, import the NgCookieService directly into the component
 
-```bash
-ng serve
+   ```typescript
+   import { NgCookieService } from "ngx-cookie-service";
+   import { Component } from "@angular/core";
+
+   @Component({
+     selector: "my-component",
+     template: `<h1>Hello World</h1>`,
+     providers: [NgCookieService],
+   })
+   export class HelloComponent {
+     constructor(private cookieService: NgCookieService) {
+       this.cookieService.set("token", "Hello World");
+       console.log(this.cookieService.get("token"));
+     }
+   }
+   ```
+
+2. You can also use `inject()` method in v14+ to inject the service into the component
+
+   ```typescript
+   import { NgCookieService } from "ngx-cookie-service";
+   import { Component, inject } from "@angular/core";
+
+   @Component({
+     selector: "my-component",
+     template: `<h1>Hello World</h1>`,
+     providers: [NgCookieService],
+   })
+   export class HelloComponent {
+     cookieService = inject(NgCookieService);
+
+     constructor() {
+       this.cookieService.set("token", "Hello World");
+       console.log(this.cookieService.get("token"));
+     }
+   }
+   ```
+
+## Server Side Rendering
+
+This library out of the box supports server side rendering (SSR).
+However, to get access to the cookie, your appilcation need to be in hybrid render mode (from angular 19).
+
+See [Accessing request and response via DI](https://angular.dev/guide/hybrid-rendering#accessing-request-and-response-via-di) for more information.
+
+# API
+
+## check( name: string ): boolean;
+
+```typescript
+const cookieExists: boolean = cookieService.check("test");
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Checks if a cookie with the given`name` can be accessed or found.
 
-## Code scaffolding
+## get( name: string ): string;
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```typescript
+const value: string = cookieService.get("test");
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Gets the value of the cookie with the specified `name`.
 
-```bash
-ng generate --help
+## getAll(): {};
+
+```typescript
+const allCookies: {} = cookieService.getAll();
 ```
 
-## Building
+Returns a map of key-value pairs for cookies that can be accessed.
 
-To build the project run:
+## set( name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None' ): void;
 
-```bash
-ng build
+## set( name: string, value: string, options?: { expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'None' | 'Strict'}): void;
+
+```typescript
+cookieService.set("test", "Hello World");
+cookieService.set("test", "Hello World", { expires: 2, sameSite: "Lax" });
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Sets a cookie with the specified `name` and `value`. It is good practice to specify a path. If you are unsure about the
+path value, use `'/'`. If no path or domain is explicitly defined, the current location is assumed. `sameSite` defaults
+to `Lax`.
 
-## Running unit tests
+**Important:** For security reasons, it is not possible to define cookies for other domains. Browsers do not allow this.
+Read [this](https://stackoverflow.com/a/1063760) and [this](https://stackoverflow.com/a/17777005/1007003) StackOverflow
+answer for a more in-depth explanation.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+**Important:** Browsers do not accept cookies flagged sameSite = 'None' if secure flag isn't set as well. CookieService
+will override the secure flag to true if sameSite='None'.
 
-```bash
-ng test
+## delete( name: string, path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'): void;
+
+```typescript
+cookieService.delete("test");
 ```
 
-## Running end-to-end tests
+Deletes a cookie with the specified `name`. It is best practice to always define a path. If you are unsure about the
+path value, use `'/'`.
 
-For end-to-end (e2e) testing, run:
+**Important:** For security reasons, it is not possible to delete cookies for other domains. Browsers do not allow this.
+Read [this](https://stackoverflow.com/a/1063760) and [this](https://stackoverflow.com/a/17777005/1007003) StackOverflow
+answer for a more in-depth explanation.
 
-```bash
-ng e2e
+## deleteAll( path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax' ): void;
+
+```typescript
+cookieService.deleteAll();
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Deletes all cookies that can currently be accessed. It is best practice to always define a path. If you are unsure about
+the path value, use `'/'`.
