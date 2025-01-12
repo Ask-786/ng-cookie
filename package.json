@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "test": "ng test"
+    "test": "ng test",
+    "build": "ng build ng-cookie"
   },
   "private": true,
   "dependencies": {
