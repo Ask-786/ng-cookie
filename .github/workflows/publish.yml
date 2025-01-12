@@ -27,7 +27,7 @@ jobs:
 
       - name: Publish to NPM registry
         if: steps.changesets.outputs.hasChangesets == 'false'
-        run: pnpm run pubilsh
+        run: pnpm run publish
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
