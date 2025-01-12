@@ -1,6 +1,10 @@
 {
   "name": "ngx-cookie-ssr",
   "version": "0.0.4",
+  "homepage": "https://github.com/Ask-786/ng-cookie",
+  "main": "dist/ng-cookie/fesm2022/ng-cookie.mjs",
+  "module": "dist/ng-cookie/fesm2022/ng-cookie.mjs",
+  "types": "dist/ng-cookie/index.d.ts",
   "scripts": {
     "ng": "ng",
     "test": "ng test",
