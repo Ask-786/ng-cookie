@@ -23,6 +23,7 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm run publish
+          cwd: dist/ng-cookie
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
