@@ -6,45 +6,24 @@ But only intended to be used with Angular 19 currently.
 
 ## Usage
 
-1. In standalone components, import the NgCookieService directly into the component
+```typescript
+import { NgCookieService } from "ngx-cookie-service";
+import { Component, inject } from "@angular/core";
 
-   ```typescript
-   import { NgCookieService } from "ngx-cookie-service";
-   import { Component } from "@angular/core";
+@Component({
+  selector: "my-component",
+  template: `<h1>Hello World</h1>`,
+  providers: [NgCookieService],
+})
+export class HelloComponent {
+  cookieService = inject(NgCookieService);
 
-   @Component({
-     selector: "my-component",
-     template: `<h1>Hello World</h1>`,
-     providers: [NgCookieService],
-   })
-   export class HelloComponent {
-     constructor(private cookieService: NgCookieService) {
-       this.cookieService.set("token", "Hello World");
-       console.log(this.cookieService.get("token"));
-     }
-   }
-   ```
-
-2. You can also use `inject()` method in v14+ to inject the service into the component
-
-   ```typescript
-   import { NgCookieService } from "ngx-cookie-service";
-   import { Component, inject } from "@angular/core";
-
-   @Component({
-     selector: "my-component",
-     template: `<h1>Hello World</h1>`,
-     providers: [NgCookieService],
-   })
-   export class HelloComponent {
-     cookieService = inject(NgCookieService);
-
-     constructor() {
-       this.cookieService.set("token", "Hello World");
-       console.log(this.cookieService.get("token"));
-     }
-   }
-   ```
+  constructor() {
+    this.cookieService.set("token", "Hello World");
+    console.log(this.cookieService.get("token"));
+  }
+}
+```
 
 ## Server Side Rendering
 
@@ -55,7 +34,7 @@ See [Accessing request and response via DI](https://angular.dev/guide/hybrid-ren
 
 # API
 
-## check( name: string ): boolean;
+## check(name: string): boolean;
 
 ```typescript
 const cookieExists: boolean = cookieService.check("test");
@@ -63,7 +42,7 @@ const cookieExists: boolean = cookieService.check("test");
 
 Checks if a cookie with the given`name` can be accessed or found.
 
-## get( name: string ): string;
+## get(name: string): string;
 
 ```typescript
 const value: string = cookieService.get("test");
@@ -79,9 +58,9 @@ const allCookies: {} = cookieService.getAll();
 
 Returns a map of key-value pairs for cookies that can be accessed.
 
-## set( name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None' ): void;
+## set(name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None'): void;
 
-## set( name: string, value: string, options?: { expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'None' | 'Strict'}): void;
+## set(name: string, value: string, options?: { expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'None' | 'Strict'}): void;
 
 ```typescript
 cookieService.set("test", "Hello World");
@@ -99,7 +78,7 @@ answer for a more in-depth explanation.
 **Important:** Browsers do not accept cookies flagged sameSite = 'None' if secure flag isn't set as well. CookieService
 will override the secure flag to true if sameSite='None'.
 
-## delete( name: string, path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'): void;
+## delete(name: string, path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'): void;
 
 ```typescript
 cookieService.delete("test");
@@ -112,7 +91,7 @@ path value, use `'/'`.
 Read [this](https://stackoverflow.com/a/1063760) and [this](https://stackoverflow.com/a/17777005/1007003) StackOverflow
 answer for a more in-depth explanation.
 
-## deleteAll( path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax' ): void;
+## deleteAll(path?: string, domain?: string, secure?: boolean, sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'): void;
 
 ```typescript
 cookieService.deleteAll();
