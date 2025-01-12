@@ -1,5 +1,11 @@
 # ng-cookie
 
+## 0.0.7
+
+### Patch Changes
+
+- 2bcd99f: For testing purpose
+
 ## 0.0.6
 
 ### Patch Changes
