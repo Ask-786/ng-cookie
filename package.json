@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
-    "build": "ng build ng-cookie"
+    "build": "ng build ng-cookie",
+    "publish": "ng build ng-cookie && changeset publish"
   },
   "private": false,
   "dependencies": {
