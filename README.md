@@ -30,6 +30,15 @@ export class HelloComponent {
 This library out of the box supports server side rendering (SSR).
 However, to get access to the cookie, your appilcation need to be in hybrid render mode (from angular 19).
 
+```ts
+export const serverRoutes: ServerRoute[] = [
+  {
+    path: "**",
+    renderMode: RenderMode.Server,
+  },
+];
+```
+
 See [Accessing request and response via DI](https://angular.dev/guide/hybrid-rendering#accessing-request-and-response-via-di) for more information.
 
 # API
