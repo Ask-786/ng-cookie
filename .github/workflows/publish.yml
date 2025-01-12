@@ -17,7 +17,11 @@ jobs:
           node-version: 20.x
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
 
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -27,7 +31,6 @@ jobs:
 
       - name: Publish to NPM registry
         if: steps.changesets.outputs.hasChangesets == 'false'
-        run: pnpm run publish
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
