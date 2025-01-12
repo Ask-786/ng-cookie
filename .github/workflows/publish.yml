@@ -34,5 +34,5 @@ jobs:
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: dist/ng-cookie/package.json
+          package: dist/ngx-cookie-ssr/package.json
           access: public

@@ -10,8 +10,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "ng-cookie": [
-        "./dist/ng-cookie"
+      "ngx-cookie-ssr": [
+        "./dist/ngx-cookie-ssr"
       ]
     },
     "skipLibCheck": true,
