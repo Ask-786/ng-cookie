@@ -8,5 +8,24 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "keywords": [
+    "angular",
+    "angular-19",
+    "ngx",
+    "ng",
+    "service",
+    "angular-service",
+    "cookie-service",
+    "cookie",
+    "cookies"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ask-786/ngx-cookie-ssr"
+  },
+  "bugs": {
+    "url": "https://github.com/Ask-786/ngx-cookie-ssr/issues"
+  },
+  "license": "MIT",
   "sideEffects": false
 }
