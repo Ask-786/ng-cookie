@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
-    "build": "ng-packagr -p projects/ngx-cookie-ssr/ng-package.json"
+    "build": "ng build --configuration production"
   },
   "private": false,
   "dependencies": {
