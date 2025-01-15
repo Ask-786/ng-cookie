@@ -21,7 +21,7 @@ export class CookieService {
   private cookie() {
     return this.documentIsAccessible
       ? this.document.cookie
-      : this.request?.headers.get('cookie') ?? '';
+      : (this.request?.headers.get('cookie') ?? '');
   }
 
   /**
@@ -35,12 +35,12 @@ export class CookieService {
   static getCookieRegExp(name: string): RegExp {
     const escapedName: string = name.replace(
       /([\[\]\{\}\(\)\|\=\;\+\?\,\.\*\^\$])/gi,
-      '\\$1'
+      '\\$1',
     );
 
     return new RegExp(
       '(?:^' + escapedName + '|;\\s*' + escapedName + ')=(.*?)(?:;|$)',
-      'g'
+      'g',
     );
   }
 
@@ -144,7 +144,7 @@ export class CookieService {
     domain?: string,
     secure?: boolean,
     sameSite?: 'Lax' | 'None' | 'Strict',
-    partitioned?: boolean
+    partitioned?: boolean,
   ): void;
 
   /**
@@ -175,7 +175,7 @@ export class CookieService {
       secure?: boolean;
       sameSite?: 'Lax' | 'None' | 'Strict';
       partitioned?: boolean;
-    }
+    },
   ): void;
 
   set(
@@ -186,7 +186,7 @@ export class CookieService {
     domain?: string,
     secure?: boolean,
     sameSite?: 'Lax' | 'None' | 'Strict',
-    partitioned?: boolean
+    partitioned?: boolean,
   ): void {
     if (
       typeof expiresOrOptions === 'number' ||
@@ -217,7 +217,7 @@ export class CookieService {
     if (options.expires) {
       if (typeof options.expires === 'number') {
         const dateExpires: Date = new Date(
-          new Date().getTime() + options.expires * 1000 * 60 * 60 * 24
+          new Date().getTime() + options.expires * 1000 * 60 * 60 * 24,
         );
 
         cookieString += 'expires=' + dateExpires.toUTCString() + ';';
@@ -238,7 +238,7 @@ export class CookieService {
       options.secure = true;
       console.warn(
         `[ngx-cookie-service] Cookie ${name} was forced with secure flag because sameSite=None.` +
-          `More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130`
+          `More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130`,
       );
     }
 
@@ -260,7 +260,7 @@ export class CookieService {
       this.document.cookie = cookieString;
     } else {
       const headers = this.responseInit?.headers as Headers;
-      headers?.set('Set-Cookie', cookieString);
+      headers?.append('Set-Cookie', cookieString);
     }
   }
 
@@ -280,7 +280,7 @@ export class CookieService {
     path?: string,
     domain?: string,
     secure?: boolean,
-    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'
+    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax',
   ): void {
     const expiresDate = new Date('Thu, 01 Jan 1970 00:00:01 GMT');
     this.set(name, '', {
@@ -306,7 +306,7 @@ export class CookieService {
     path?: string,
     domain?: string,
     secure?: boolean,
-    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax'
+    sameSite: 'Lax' | 'None' | 'Strict' = 'Lax',
   ): void {
     const cookies = this.getAll();
 
